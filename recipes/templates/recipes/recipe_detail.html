@@ -10,4 +10,10 @@
             <p class="card-text">{{ object.description }}</p>
         </div>
     </div>
+    {% if object.author == user or user.is_staff %}
+        <div class="col-4">
+            <a class="btn btn-outline-info" href="{% url 'recipe-update' object.id %}">Update</a>
+            <a class="btn btn-outline-danger" href="{% url 'recipe-delete' object.id %}">Delete</a>
+        </div>
+    {% endif %}
 {% endblock content %}
