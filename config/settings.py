@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'recipes',
     'users',
 
-    # 3rd party
+    # 3rd party apps
     'crispy_bootstrap4',
     'crispy_forms',
 ]
@@ -134,5 +134,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'recipes_home'
+LOGIN_REDIRECT_URL = 'recipes-home'
+
 LOGIN_URL = 'user-login'

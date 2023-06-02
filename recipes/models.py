@@ -5,7 +5,8 @@ from django.urls import reverse
 # Create your models here.
 class Recipe(models.Model):
     title = models.CharField(max_length=100)
-    description = models.TextField()
+    description = models.CharField(max_length=300)
+    recipe = models.TextField()
 
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 

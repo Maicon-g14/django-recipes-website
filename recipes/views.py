@@ -5,7 +5,6 @@ from django.urls import reverse_lazy
 
 from . import models
 
-
 # Create your views here.
 def home(request):
     recipes = models.Recipe.objects.all()
@@ -24,7 +23,7 @@ class RecipeDetailView(DetailView):
 
 class RecipeCreateView(LoginRequiredMixin, CreateView):
     model = models.Recipe
-    fields = ['title', 'description']
+    fields = ['title', 'description', 'recipe']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -32,7 +31,7 @@ class RecipeCreateView(LoginRequiredMixin, CreateView):
 
 class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = models.Recipe
-    fields = ['title', 'description']
+    fields = ['title', 'description', 'recipe']
 
     def test_func(self):
         recipe = self.get_object()
