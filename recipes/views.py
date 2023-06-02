@@ -1,38 +1,53 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.urls import reverse_lazy
 
-recipes = [
-    {
-        'author': 'Levy',
-        'title': 'Perfectly Fried Egg',
-        'directions': 'Break the egg, put in the fryer, heat until looks tasty(don\'t let it toast)',
-        'date_posted': 'May 30, 2013'
-    },
-    {
-        'author': 'Zack',
-        'title': 'Unfried Fried Egg',
-        'directions': 'Break the egg, put in the fryer, repent yourself then try to burn everything',
-        'date_posted': 'Apr 1, 2015'
-    },
-    {
-        'author': 'Eren',
-        'title': 'Fake Fried Egg',
-        'directions': 'Break the egg, put in the fryer, call the fire-fighters and then put fire on it',
-        'date_posted': 'Apr 1, 2023'
-    },
-    {
-        'author': 'Mikasa',
-        'title': 'I Fried an Egg?',
-        'directions': 'Break the egg, put in the fryer, tell Eren to continue',
-        'date_posted': 'Apr 1, 2023'
-    },
-]
+from . import models
 
 # Create your views here.
 def home(request):
+    recipes = models.Recipe.objects.all()
     context = {
         'recipes': recipes
     }
     return render(request, "recipes/home.html", context)
+
+class RecipeListView(ListView):
+    model = models.Recipe
+    template_name = 'recipes/home.html'
+    context_object_name = 'recipes'
+
+class RecipeDetailView(DetailView):
+    model = models.Recipe
+
+class RecipeCreateView(LoginRequiredMixin, CreateView):
+    model = models.Recipe
+    fields = ['title', 'description', 'recipe']
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class RecipeUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = models.Recipe
+    fields = ['title', 'description', 'recipe']
+
+    def test_func(self):
+        recipe = self.get_object()
+        return self.request.user == recipe.author
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class RecipeDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = models.Recipe
+    success_url = reverse_lazy('recipes-home')
+
+    def test_func(self):
+        recipe = self.get_object()
+        return self.request.user == recipe.author
 
 def about(request):
     return render(request, "recipes/about.html", {'title': 'About Us'})

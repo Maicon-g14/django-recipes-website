@@ -1,10 +1,15 @@
 {% extends 'recipes/base.html' %}
 
 {% block content %}
-    <h1>Ola</h1>
+    <h1>Check out some of our most famous recipes:</h1>
     {% for recipe in recipes %}
-        <h1>{{ recipe.title }}</h1>
-        <p>{{ recipe.author }} | {{ recipe.date_posted }}</p>
-        <p>{{ recipe.directions }}</p>
+        <div class="card my-4" style="width: 18rem;">
+            <div class="card-body">
+              <h5 class="card-title">{{ recipe.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-body-secondary">{{ recipe.author }} | {{ recipe.updated_at|date:"F d, Y" }}</h6>
+              <p class="card-text">{{ recipe.description }}</p>
+              <a href="{% url 'recipe-detail' recipe.pk %}" class="card-link">View Recipe</a>
+            </div>
+        </div>
     {% endfor %}
 {% endblock content %}
