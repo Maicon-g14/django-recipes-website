@@ -2,12 +2,37 @@
 
 {% block content %}
     <div class="container">
-        <h1>Account Info:</h1>
-        <div class="mt-4">
+
+        <div class="container mt-4">
+            <h2>My profile</h2>
+            <hr>
+
             <ul>
                 <li>Username: {{ user.username }}</li>
                 <li>Email: {{ user.email }}</li>
+                <li><a href="#">Change Password</a></li>
             </ul>
+
         </div>
+
+        <div class="container mt-4">
+            <h2>My Recipes</h2>
+            <hr>
+            {% for recipe in recipes %}
+                {% if recipe.author == user %}
+                    <div class="card my-4" style="width: 18rem;">
+                        <div class="card-body">
+                        <h5 class="card-title">{{ recipe.title }}</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">{{ recipe.author }} | {{ recipe.updated_at|date:"F d, Y" }}</h6>
+                        <p class="card-text">{{ recipe.description }}</p>
+                        <a href="{% url 'recipe-detail' recipe.pk %}" class="card-link">View Recipe</a>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+
+
     </div>
 {% endblock content %}

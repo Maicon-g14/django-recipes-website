@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from recipes.models import Recipe
 from . import forms
 
 # Create your views here.
@@ -19,4 +20,9 @@ def register(request):
 
 @login_required()
 def profile(request):
-    return render(request, 'users/profile.html')
+    recipes = Recipe.objects.all()
+    context = {
+        'recipes': recipes
+    }
+
+    return render(request, 'users/profile.html', context)
