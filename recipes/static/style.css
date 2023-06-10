@@ -1,0 +1,20 @@
+.bg-primary {
+    background-color: #ffc145 !important;
+}
+
+.bg-secondary {
+    background-color: #d4b483 !important;
+}
+  
+
+.card-group > .card {
+    min-width: 18rem;
+    max-width: 18rem;
+    border-radius: var(--bs-card-border-radius) !important;
+    border: var(--bs-card-border-width) solid var(--bs-card-border-color) !important;
+    height: 20rem;
+}
+
+.card-group > .card > img {
+    height: 50%;
+}
