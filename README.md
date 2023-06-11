@@ -22,3 +22,10 @@ Then, run the project with:
 ```bash
 python manage.py runserver
 ```
+
+## On db reconfiguration
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```

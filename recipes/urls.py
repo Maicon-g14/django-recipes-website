@@ -3,6 +3,7 @@ from . import views
 
 'app/model_viewtype'
 'recipes/recipe_detail.html'
+'recipes/recipe_card.html'
 
 urlpatterns = [
     path('', views.RecipeListView.as_view(), name="recipes-home"),

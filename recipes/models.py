@@ -10,6 +10,10 @@ class Recipe(models.Model):
     directions = models.TextField()
     final_considerations = models.TextField()
 
+    image = models.CharField(max_length=100)
+    tags = models.CharField(max_length=100)
+    rating = models.CharField(max_length=100)
+
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)

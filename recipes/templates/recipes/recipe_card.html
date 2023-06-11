@@ -1,0 +1,14 @@
+{% extends 'recipes/base.html' %}
+
+{% block content %}    
+    <div class="card my-4 mx-3" style="width: 18rem;">
+        <img src="{% static object.image %}" class="card-img-top" alt="{{ object.title }} image">
+        <div class="card-body">
+            <h3 class="card-title">{{ object.title }}</h3>
+            <p class="card-text">{{ object.description }}</p>
+
+            <a href="{% url 'recipe-detail' recipe.pk %}" class="card-link">View Recipe</a>
+            <span>{{ object.rating }}</span>
+        </div>
+    </div>
+{% endblock content %}
